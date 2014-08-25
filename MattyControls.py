@@ -267,6 +267,12 @@ class Db(OptionMenu):
             self.width = 100
         if self.place_info().get('height', '') == '':
             self.height = 26
+        self.onChange = None
+        self.strVar.trace('w', self._change)
+
+    def _change(self, *args):
+        if self.onChange != None:
+            self.onChange(*args)
 
     # Some getters and setters
     x = Btn.x
