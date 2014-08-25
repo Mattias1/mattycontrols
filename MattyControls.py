@@ -251,6 +251,40 @@ class TbM(Text):
         if self.onChange != None:
             self.onChange(event)
 
+#
+# The Dropdown box (or combo box) class
+#
+class Db(OptionMenu):
+    """Matty's dropdown box class"""
+
+    # Init method
+    def __init__(self, parent, options, **kwargs):
+        """Create a dropdown box."""
+        self.strVar = StringVar(parent)
+        self.strVar.set('')
+        OptionMenu.__init__(self, parent, self.strVar, '', *options, **kwargs)
+        if self.place_info().get('width', '') == '':
+            self.width = 100
+        if self.place_info().get('height', '') == '':
+            self.height = 26
+
+    # Some getters and setters
+    x = Btn.x
+    y = Btn.y
+    width = Btn.width
+    height = Btn.height
+    command = Btn.command
+    selectedValue = property(lambda self: self.strvar.get(), lambda self, val: self.strvar.set(val))
+
+    # The positioning methods
+    def locateInside(self, c, h=H_LEFT, v=V_TOP, d=10):
+        Btn.locateInside(self, c, h, v, d)
+
+    def locateFrom(self, c, h=H_LEFT, v=V_TOP, d=10):
+        Btn.locateFrom(self, c, h, v, d)
+
+    def addLabel(self, text, d=10, moveCtrl=True, labelWidth=0):
+        Btn.addLabel(self, text, d, moveCtrl, labelWidth)
 
 #
 #   The canvas class
