@@ -157,6 +157,36 @@ class Lbl(Label):
         Btn.locateFrom(self, c, h, v, d)
 
 
+class Cb(Checkbutton):
+    """Matty's checkbox class"""
+
+    def __init__(self, parent, **kwargs):
+        """Create a label."""
+        self.intVar = IntVar()
+        Label.__init__(self, parent, variable=self.intVar, onvalue=1, offvalue=0, **kwargs)
+        if self.place_info().get('width', '') == '':
+            self.width = 100
+        if self.place_info().get('height', '') == '':
+            self.height = 20
+        self.label = None
+
+    # Some getters and setters
+    x = Btn.x
+    y = Btn.y
+    width = Btn.width
+    height = Btn.height
+    text = Btn.text
+    value = checked
+    checked = property(lambda self: self.intVar.get(), lambda self, val: self.intVar.set(self['onvalue'] if val else self['offvalue']))
+
+    # The positioning methods
+    def locateInside(self, c, h=H_LEFT, v=V_TOP, d=10):
+        Btn.locateInside(self, c, h, v, d)
+
+    def locateFrom(self, c, h=H_LEFT, v=V_TOP, d=10):
+        Btn.locateFrom(self, c, h, v, d)
+
+
 #
 #   The textbox (entry) class
 #
