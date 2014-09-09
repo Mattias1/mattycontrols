@@ -77,13 +77,13 @@ class Btn(Button):
         if h == H_LEFT:        x = d
         if h == H_COPY_LEFT:   x = frame_x(c)
         if h == H_CENTER:      x = (frame_width(c) - self.width) / 2
-        if h == H_COPY_RIGHT:  x = c.x + frame_width(c) - self.width
+        if h == H_COPY_RIGHT:  x = frame_x(c) + frame_width(c) - self.width
         if h == H_RIGHT:       x = frame_width(c) - self.width - d
 
         if v == V_TOP:         y = d
         if v == V_COPY_TOP:    y = frame_y(c)
         if v == V_MIDDLE:      y = (frame_height(c) - self.height) / 2
-        if v == V_COPY_BOTTOM: y = frame_y(c) + c.height - self.height
+        if v == V_COPY_BOTTOM: y = frame_y(c) + frame_height(c) - self.height
         if v == V_BOTTOM:      y = frame_height(c) - self.height - d
 
         self.place(x=x, y=y)
@@ -163,7 +163,7 @@ class Cb(Checkbutton):
     def __init__(self, parent, **kwargs):
         """Create a label."""
         self.intVar = IntVar()
-        Label.__init__(self, parent, variable=self.intVar, onvalue=1, offvalue=0, **kwargs)
+        Checkbutton.__init__(self, parent, variable=self.intVar, onvalue=1, offvalue=0, **kwargs)
         if self.place_info().get('width', '') == '':
             self.width = 100
         if self.place_info().get('height', '') == '':
@@ -176,8 +176,8 @@ class Cb(Checkbutton):
     width = Btn.width
     height = Btn.height
     text = Btn.text
+    checked = property(lambda self: self.intVar.get(), lambda self, val: self.intVar.set(1 if val else 0))
     value = checked
-    checked = property(lambda self: self.intVar.get(), lambda self, val: self.intVar.set(self['onvalue'] if val else self['offvalue']))
 
     # The positioning methods
     def locateInside(self, c, h=H_LEFT, v=V_TOP, d=10):
