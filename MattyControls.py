@@ -169,6 +169,12 @@ class Cb(Checkbutton):
         if self.place_info().get('height', '') == '':
             self.height = 20
         self.label = None
+        self.onChange = None
+        self.intVar.trace('w', self._change)
+
+    def _change(self, *args):
+        if self.onChange != None:
+            self.onChange(*args)
 
     # Some getters and setters
     x = Btn.x
