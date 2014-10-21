@@ -22,10 +22,14 @@ def frame_init(frame, master, frameInsideTab = False):
     """Initialize the frame, so that it's properties are properly set."""
     Frame.__init__(frame, master)
     master.update_idletasks() # This fires all events that update unnescessary things like width and height
-    h = master.winfo_height()
+    w, h = master.winfo_width(), master.winfo_height()
     if frameInsideTab:
         h -= 20
-    frame.place(width=master.winfo_width(), height=h)
+    print('{}x{}'.format(w, h))
+    try:
+        frame.place(width=w, height=h)
+    except AttributeError:
+        pass
 
 def frame_x(frame):
     """Get the frame's x coordinate."""
@@ -37,11 +41,17 @@ def frame_y(frame):
 
 def frame_width(frame):
     """Get the frame's width."""
-    return int(frame.place_info().get('width'))
+    try:
+        return int(frame.place_info().get('width'))
+    except AttributeError:
+        return int(frame.winfo_width())
 
 def frame_height(frame):
     """Get the frame's width."""
-    return int(frame.place_info().get('height'))
+    try:
+        return int(frame.place_info().get('height'))
+    except AttributeError:
+        return int(frame.winfo_height())
 
 
 #
