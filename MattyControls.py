@@ -25,7 +25,6 @@ def frame_init(frame, master, frameInsideTab = False):
     w, h = master.winfo_width(), master.winfo_height()
     if frameInsideTab:
         h -= 20
-    print('{}x{}'.format(w, h))
     try:
         frame.place(width=w, height=h)
     except AttributeError:
