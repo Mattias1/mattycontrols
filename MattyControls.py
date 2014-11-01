@@ -183,7 +183,7 @@ class Cb(Checkbutton):
 
     def _change(self, *args):
         if self.onChange != None:
-            self.onChange(*args)
+            self.onChange(self, *args)
 
     # Some getters and setters
     x = Btn.x
