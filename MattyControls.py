@@ -305,6 +305,7 @@ class Db(OptionMenu):
     # Init method
     def __init__(self, parent, options, selected=-1, **kwargs):
         """Create a dropdown box."""
+        self.options = options
         self.strVar = StringVar(parent)
         if selected == -1:
             self.strVar.set('')
@@ -329,6 +330,10 @@ class Db(OptionMenu):
     height = Btn.height
     command = Btn.command
     selectedValue = property(lambda self: self.strVar.get(), lambda self, val: self.strVar.set(val))
+    selectedIndex = property(
+            lambda self: self.options.index(self.strVar.get()),
+            lambda self, val: self.strVar.set(self.options[val])
+        )
 
     # The positioning methods
     def locateInside(self, c, h=H_LEFT, v=V_TOP, d=10):
